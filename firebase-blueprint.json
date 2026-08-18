@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Lecture": {
+      "title": "Lecture",
+      "description": "A lecture uploaded by a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title"]
+    },
+    "FlashcardDeck": {
+      "title": "Flashcard Deck",
+      "description": "A generated flashcard deck for a lecture",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "lectureId": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "settings": { "type": "object" },
+        "cards": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "lectureId", "cards"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "A conversation with the AI tutor",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "lectureId": { "type": "string" },
+        "messages": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "lectureId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "#/entities/User",
+      "description": "Stores user profiles"
+    },
+    "/lectures/{lectureId}": {
+      "schema": "#/entities/Lecture",
+      "description": "Stores lecture summaries"
+    },
+    "/flashcards/{deckId}": {
+      "schema": "#/entities/FlashcardDeck",
+      "description": "Stores flashcard decks"
+    },
+    "/chats/{chatId}": {
+      "schema": "#/entities/Chat",
+      "description": "Stores chat history"
+    }
+  }
+}
